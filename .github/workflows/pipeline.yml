@@ -33,7 +33,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "jaripokedex"
           heroku_email: "ig.jarisokka@gmail.com"
-          procfile: "web: npm run prod"
+          procfile: "web: npm run start-prod"
           healthcheck: "https://jaripokedex.herokuapp.com/health"
           checkstring: "ok"
           delay: 5
