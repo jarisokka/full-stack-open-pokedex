@@ -54,6 +54,14 @@ jobs:
         with:
           status: custom
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ github.event_name == 'push' && success() }}
+        - name: slack error
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,took
           custom_payload: |
             {
               attachments: [{
@@ -63,5 +71,4 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: ${{ github.event_name == 'push' }}
-
+        if: ${{ github.event_name == 'push' && failure() }}
